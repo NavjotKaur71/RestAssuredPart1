@@ -16,22 +16,22 @@ public class Basics {
 // validate if Add Place API is workimg as expected 
 		//Add place-> Update Place with New Address -> Get Place to validate if New address is present in response
 		
-		//given - all input details 
-		//when - Submit the API -resource,http method
-		//Then - validate the response
+		//given - all input details -  log all, query param, headers, body.
+		//when - Submit the API - http method, resource(end point)
+		//Then - validate the response assertthat, status code, headers, body(payload), extract response as string and store in a response string variable
 		RestAssured.baseURI= "https://rahulshettyacademy.com";
 		String response=given().log().all().queryParam("key", "qaclick123").header("Content-Type","application/json")
 		.body(payload.AddPlace()).when().post("maps/api/place/add/json")
 		.then().assertThat().statusCode(200).body("scope", equalTo("APP"))
 		.header("server", "Apache/2.4.18 (Ubuntu)").extract().response().asString();
-		
+
 		System.out.println(response);
-		JsonPath js=new JsonPath(response); //for parsing Json
-		String placeId=js.getString("place_id");
+		JsonPath js=new JsonPath(response); //for parsing Json - converts string to json so that we can check the key value pairs
+		String placeId=js.getString("place_id");// get the value of a key "place_id"
 		
 		System.out.println(placeId);
 		
-		//Update Place
+		//Update Place - put method
 		String newAddress = "Summer Walk, Africa";
 		
 		given().log().all().queryParam("key", "qaclick123").header("Content-Type","application/json")
@@ -43,7 +43,7 @@ public class Basics {
 		when().put("maps/api/place/update/json")
 		.then().assertThat().log().all().statusCode(200).body("msg", equalTo("Address successfully updated"));
 		
-		//Get Place
+		//Get Place - get method - no body needed to send with request
 		
 	String getPlaceResponse=	given().log().all().queryParam("key", "qaclick123")
 		.queryParam("place_id",placeId)
@@ -55,25 +55,6 @@ public class Basics {
 	Assert.assertEquals(actualAddress, "Pacific ocean");
 	//Cucumber Junit, Testng
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 	}
 
