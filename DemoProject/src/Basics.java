@@ -13,7 +13,7 @@ public class Basics {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-// validate if Add Place API is workimg as expected 
+		// validate if Add Place API is working as expected 
 		//Add place-> Update Place with New Address -> Get Place to validate if New address is present in response
 		
 		//given - all input details -  log all, query param, headers, body.
@@ -54,8 +54,6 @@ public class Basics {
 	System.out.println(actualAddress);
 	Assert.assertEquals(actualAddress, "Pacific ocean");
 	//Cucumber Junit, Testng
-	
 		
 	}
-
 }
